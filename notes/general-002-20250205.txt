@@ -1,0 +1,25 @@
+general-20250205-002
+
+Project Structure:
+notes
+	folder for notes and examples
+scr
+	contains all the main code for the project
+	digit_obj
+		creates an object set for each digit run through the test
+		set contains controller, view, handler, analyser
+		controller is the main file that checks inputs and runs the other objects
+		view set of objects that creates displays for the data
+		handler saves, updates, and loads all the data
+		analyser takes raw data creates new data for deeper analysis
+	util
+		general utility objects, classes, or functions
+		iterator completes 10 cycles or till finished of the Conjecture
+		rearranger used by iterator for rearranging the given number for step 1 of a cycle
+	display
+		creates the general display and menus for the user to run the program
+test
+	contains all code for testing
+	unittest
+		contains unit tests for all the code
+		follows a similar structure to production code
