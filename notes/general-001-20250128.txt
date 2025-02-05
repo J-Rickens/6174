@@ -1,5 +1,5 @@
-general-20250128-001
-
+general-001-20250128
+update-001-20250205
 
 only positive numbers
 can check with or without leading 0s
@@ -28,3 +28,13 @@ needed functions:
 		inputs:		group
 		outputs:	error code
 		displays selected data
+
+
+--u1--
+note naming convention:
+	filename: type-number-initial_date.txt
+
+	in note put file name at top of file
+	update-number-date for each update to the note
+	can indicate inline change with "--u#--"
+--u1--
