@@ -1,0 +1,30 @@
+general-20250128-001
+
+
+only positive numbers
+can check with or without leading 0s
+look for final numbers or loops
+
+needed functions:
+	rearanger
+		inputs:		number, digits
+		outputs:	rehigh, relow
+		add leading 0s if needed
+		rearanges the number so the digits go from greatest to least and vise versa for rehigh and relow respectivly
+		sort listed numbers both ways same time (search best sorting method)
+	subtractor
+		inputs:		number, digits
+		outputs:	data (dic or list?)
+		calls rearanger
+		subtracts rehigh and relow
+		compares new# if less then start# or equal to a previous new#/start#
+		add new# to list
+		repeat
+	data handlar
+		inputs:		data, group
+		outputs:	error code
+		saves new data to group spicific files
+	data display
+		inputs:		group
+		outputs:	error code
+		displays selected data
