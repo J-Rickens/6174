@@ -1,8 +1,8 @@
 import pytest
 from scr.util.rearranger import Rearranger
 
-class TestRearranger:
 
+class TestRearranger:
 
 	'''
 	Setup functions
@@ -57,7 +57,6 @@ class TestRearranger:
 		('4R6', ValueError, 'String must only contain numbers'),
 		('45.5', ValueError, 'String must only contain numbers'),
 		('', ValueError, 'String is empty')
-
 	])
 	def testRearrangeErrors(self, numstr, error, errorMessage):
 		with pytest.raises(error, match=errorMessage):
@@ -71,3 +70,11 @@ class TestRearranger:
 	def testRearrangeValid(self, numstr, expected):
 		actual = self.rearrangerObj.rearrange(numstr)
 		assert actual == expected
+
+
+	'''
+	tests for rearrange function
+	test: Error calls, Valid calls
+	'''
+	def testSetZerosValid(self):
+		assert True
