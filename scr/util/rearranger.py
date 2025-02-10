@@ -4,13 +4,15 @@ class Rearranger:
 	def rearrange(self, numStr: str) -> tuple[str, str]:
 		if (not isinstance(numStr, str)):
 			raise TypeError('numStr must be a String')
+		if (not numStr):
+			raise ValueError('String is empty')
 		if (not numStr.isnumeric()):
 			raise ValueError('String must only contain numbers')
 		rehigh = numStr[0]
 		relow = numStr[0]
 		for n in numStr[1:]:
 			i = 0
-			while (i < len(rehigh) or int(rehigh[i]) > int(n)):
+			while (i < len(rehigh) and int(rehigh[i]) > int(n)):
 				i += 1
 			il = len(rehigh) - i
 			rehigh = self.insertSubstring(rehigh, n, i)
