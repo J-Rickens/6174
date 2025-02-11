@@ -73,8 +73,33 @@ class TestRearranger:
 
 
 	'''
-	tests for rearrange function
-	test: Error calls, Valid calls
+	tests for setZeros function
+	test: TypeError calls, ValueError calls, Valid calls
 	'''
-	def testSetZerosValid(self):
-		assert True
+	@pytest.mark.parametrize('num, digits', [
+		(745, True), (False, 5), (54.3, '2'), ('', None)
+	], ids=[
+		'digits-bool', 'num-bool', 'float-str', 'empty'
+	])
+	def testSetZerosTypeErrors(self, num, digits):
+		errorMessage = f'Expected "num: int, digits: int" Got:"num: {type(num)}, digits: {type(digits)}"'
+		with pytest.raises(TypeError, match=errorMessage):
+			self.rearrangerObj.setZeros(num, digits)
+
+	@pytest.mark.parametrize('num, digits, errorMessage', [
+		(568, -1, 'num and digits must be positive (num: 568, digits: -1)'),
+		(-568, 3, 'num and digits must be positive (num: -568, digits: 3)'),
+		(568, 2, 'num exceeds expected digits (has: 3, expected: 2)
+	])
+	def testRearrangeErrors(self, num, digits, errorMessage):
+		with pytest.raises(ValueError, match=errorMessage):
+			self.rearrangerObj.setZeros(num, digits)
+
+	@pytest.mark.parametrize('num, digits, expected', [
+		(3748, 4, '3748'),
+		(2, 5, '00002'),
+		(356, 0, '356')
+	])
+	def testSetZerosValid(self, num, digits, expected):
+		actual = self.rearrangerObj.setZeros(num, digits)
+		assert actual == expected
