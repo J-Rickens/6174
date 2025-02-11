@@ -30,5 +30,19 @@ class Rearranger:
 		return s[:i] + sub + s[i:]
 
 	def setZeros(self, num: int, digits: int) -> str:
+		if (not isinstance(num, int) or
+			type(num) == bool or
+			not isinstance(digits, int) or
+			type(digits) == bool):
+			raise TypeError(f'Expected "num: int, digits: int" Got:"num: {type(num)}, digits: {type(digits)}"')
+		if (num < 0 or digits < 0):
+			raise ValueError(f'num and digits must be positive (num: {num}, digits: {digits})')
+
 		numStr = str(num)
+		if (digits == 0 or len(numStr) == digits):
+			return numStr
+		if (len(numStr) > digits):
+			raise ValueError(f'num exceeds expected digits (has: {len(numStr)}, expected: {digits})')
+		while (len(numStr) < digits):
+			numStr = '0' + numStr
 		return numStr

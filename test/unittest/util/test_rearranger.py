@@ -1,4 +1,5 @@
 import pytest
+import re
 from scr.util.rearranger import Rearranger
 
 
@@ -32,13 +33,13 @@ class TestRearranger:
 	])
 	def testInsertSubstringTypeErrors(self, s, sub, i):
 		errorMessage = f'Expected "s: str, sub: str, i: int" Got:"s: {type(s)}, sub: {type(sub)}, i: {type(i)}"'
-		with pytest.raises(TypeError, match=errorMessage):
+		with pytest.raises(TypeError, match=re.escape(errorMessage)):
 			self.rearrangerObj.insertSubstring(s,sub,i)
 
 	@pytest.mark.insertSubstring
 	@pytest.mark.parametrize('i', [-1, 5, (10)])
 	def testInsertSubstringValueErrors(self, i):
-		with pytest.raises(ValueError, match='Index out of Bounds'):
+		with pytest.raises(ValueError, match=re.escape('Index out of Bounds')):
 			self.rearrangerObj.insertSubstring('abcd','z',i)
 
 	@pytest.mark.insertSubstring
@@ -64,7 +65,7 @@ class TestRearranger:
 		('', ValueError, 'String is empty')
 	])
 	def testRearrangeErrors(self, numstr, error, errorMessage):
-		with pytest.raises(error, match=errorMessage):
+		with pytest.raises(error, match=re.escape(errorMessage)):
 			self.rearrangerObj.rearrange(numstr)
 
 	@pytest.mark.rearrange
@@ -91,7 +92,7 @@ class TestRearranger:
 	])
 	def testSetZerosTypeErrors(self, num, digits):
 		errorMessage = f'Expected "num: int, digits: int" Got:"num: {type(num)}, digits: {type(digits)}"'
-		with pytest.raises(TypeError, match=errorMessage):
+		with pytest.raises(TypeError, match=re.escape(errorMessage)):
 			self.rearrangerObj.setZeros(num, digits)
 
 	@pytest.mark.setZeros
@@ -101,7 +102,7 @@ class TestRearranger:
 		(568, 2, 'num exceeds expected digits (has: 3, expected: 2')
 	])
 	def testRearrangeErrors(self, num, digits, errorMessage):
-		with pytest.raises(ValueError, match=errorMessage):
+		with pytest.raises(ValueError, match=re.escape(errorMessage)):
 			self.rearrangerObj.setZeros(num, digits)
 
 	@pytest.mark.setZeros
