@@ -17,6 +17,7 @@ class TestRearranger:
 	tests for insertSubstring function
 	test: TypeError calls, ValueError calls, Valid calls
 	'''
+	@pytest.mark.insertSubstring
 	@pytest.mark.parametrize('s, sub, i', [
 		('abcd', 'z', '5'),
 		('abcd', False, 0),
@@ -34,11 +35,14 @@ class TestRearranger:
 		with pytest.raises(TypeError, match=errorMessage):
 			self.rearrangerObj.insertSubstring(s,sub,i)
 
+	@pytest.mark.insertSubstring
 	@pytest.mark.parametrize('i', [-1, 5, (10)])
 	def testInsertSubstringValueErrors(self, i):
 		with pytest.raises(ValueError, match='Index out of Bounds'):
 			self.rearrangerObj.insertSubstring('abcd','z',i)
 
+	@pytest.mark.insertSubstring
+	@pytest.mark.critical
 	@pytest.mark.parametrize('i, expected', [
 		(0, 'zabcd'), (1, 'azbcd'), (4, 'abcdz')
 	])
@@ -51,6 +55,7 @@ class TestRearranger:
 	tests for rearrange function
 	test: Error calls, Valid calls
 	'''
+	@pytest.mark.rearrange
 	@pytest.mark.parametrize('numstr, error, errorMessage', [
 		(568, TypeError, 'numStr must be a String'),
 		(['5','6','8'], TypeError, 'numStr must be a String'),
@@ -62,6 +67,8 @@ class TestRearranger:
 		with pytest.raises(error, match=errorMessage):
 			self.rearrangerObj.rearrange(numstr)
 
+	@pytest.mark.rearrange
+	@pytest.mark.critical
 	@pytest.mark.parametrize('numstr, expected', [
 		('02', ('20', '02')),
 		('4', ('4', '4')),
@@ -76,6 +83,7 @@ class TestRearranger:
 	tests for setZeros function
 	test: TypeError calls, ValueError calls, Valid calls
 	'''
+	@pytest.mark.setZeros
 	@pytest.mark.parametrize('num, digits', [
 		(745, True), (False, 5), (54.3, '2'), ('', None)
 	], ids=[
@@ -86,15 +94,18 @@ class TestRearranger:
 		with pytest.raises(TypeError, match=errorMessage):
 			self.rearrangerObj.setZeros(num, digits)
 
+	@pytest.mark.setZeros
 	@pytest.mark.parametrize('num, digits, errorMessage', [
 		(568, -1, 'num and digits must be positive (num: 568, digits: -1)'),
 		(-568, 3, 'num and digits must be positive (num: -568, digits: 3)'),
-		(568, 2, 'num exceeds expected digits (has: 3, expected: 2)
+		(568, 2, 'num exceeds expected digits (has: 3, expected: 2')
 	])
 	def testRearrangeErrors(self, num, digits, errorMessage):
 		with pytest.raises(ValueError, match=errorMessage):
 			self.rearrangerObj.setZeros(num, digits)
 
+	@pytest.mark.setZeros
+	@pytest.mark.critical
 	@pytest.mark.parametrize('num, digits, expected', [
 		(3748, 4, '3748'),
 		(2, 5, '00002'),
