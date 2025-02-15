@@ -1,6 +1,7 @@
 
 
 class Rearranger:
+
 	def rearrange(self, numStr: str) -> tuple[str, str]:
 		if (not isinstance(numStr, str)):
 			raise TypeError('numStr must be a String')
