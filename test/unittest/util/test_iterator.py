@@ -26,6 +26,13 @@ class TestIterator:
 	def resetRearrangerMock(self, request):
 		request.cls.rearrangerMock.reset_mock()
 
+	@pytest.fixture
+	def makeIteratorObjMock(self, makeRearrangerMock):
+		iteratorObj = Iterator(makeRearrangerMock)
+		iteratorObj.singleIteration = MagicMock()
+		return iteratorObj
+
+
 
 	'''
 	tests for setup function
@@ -41,8 +48,17 @@ class TestIterator:
 	'''
 	@pytest.mark.iterate
 	@pytest.mark.critical
-	def testIterateValid(self):
-		pass
+	@pytest.mark.parametrize('num, digits, data, testdata, expectedBool, expectedData', [
+		(7641, 4, None, [7641], True, [7641, 7641]),
+		(1476, 4, None, [7641,7641], True, [1476, 7641, 7641])
+	], ids=[
+		'7641', '1476'
+	])
+	def testIterateValid(self, makeIteratorObjMock, num, digits, data, testdata, expectedBool, expectedData):
+		makeIteratorObjMock.singleIteration.side_effect = testdata
+		actualBool, actualData = makeIteratorObjMock.iterate(num, digits)
+		assert actualBool == expectedBool
+		assert actualData == expectedData
 
 
 	'''
