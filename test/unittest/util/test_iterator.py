@@ -44,8 +44,26 @@ class TestIterator:
 
 	'''
 	tests for iterate function
-	test: Error calls, Valid calls
+	test: TypeError calls, Valid calls
 	'''
+	@pytest.mark.iterate
+	@pytest.mark.parametrize('num, digits, data', [
+		('abcd', 'z', '5'),
+		('abcd', False, 0),
+		(5, 'z', 0),
+		('abcd', 'z', True),
+		(('a','b'), ['a'], {0:0}),
+		('abcd', ('a',23), (-10,5))
+		
+	], ids=[
+		'i-str', 'sub-bool', 's-int', 'i-bool',
+		'mix-set', 'mix-tuple'
+	])
+	def testIterateTypeErrors(self, num, digits, data):
+		errorMessage = f'Expected:"num: int, digits: int, data: list" Got:"num: {type(num)}, digits: {type(digits)}, data: {type(data)}"'
+		with pytest.raises(TypeError, match=reEscape(errorMessage)):
+			self.iteratorObj.iterate(num, digits, data)
+
 	@pytest.mark.iterate
 	@pytest.mark.critical
 	@pytest.mark.parametrize('num, digits, data, testdata, expectedBool, expectedData', [

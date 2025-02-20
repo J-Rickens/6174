@@ -25,7 +25,7 @@ class Rearranger:
 			not isinstance(sub, str) or
 			not isinstance(i, int) or
 			type(i) == bool):
-			raise TypeError(f'Expected "s: str, sub: str, i: int" Got:"s: {type(s)}, sub: {type(sub)}, i: {type(i)}"')
+			raise TypeError(f'Expected:"s: str, sub: str, i: int" Got:"s: {type(s)}, sub: {type(sub)}, i: {type(i)}"')
 		if (i < 0 or i > len(s)):
 			raise ValueError('Index out of Bounds')
 		return s[:i] + sub + s[i:]
@@ -35,7 +35,7 @@ class Rearranger:
 			type(num) == bool or
 			not isinstance(digits, int) or
 			type(digits) == bool):
-			raise TypeError(f'Expected "num: int, digits: int" Got:"num: {type(num)}, digits: {type(digits)}"')
+			raise TypeError(f'Expected:"num: int, digits: int" Got:"num: {type(num)}, digits: {type(digits)}"')
 		if (num < 0 or digits < 0):
 			raise ValueError(f'num and digits must be positive (num: {num}, digits: {digits})')
 

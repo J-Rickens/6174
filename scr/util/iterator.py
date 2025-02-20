@@ -11,6 +11,16 @@ class Iterator:
 		if (data == None):
 			data = []
 			data.append(num)
+
+		if (not isinstance(num, int) or
+			type(num) == bool or
+			not isinstance(digits, int) or
+			type(digits) == bool or
+			not isinstance(data, list)):
+			raise TypeError(f'Expected:"num: int, digits: int, data: list" Got:"num: {type(num)}, digits: {type(digits)}, data: {type(data)}"')
+		if (num < 0 or digits < 0):
+			raise ValueError(f'num and digits must be positive (num: {num}, digits: {digits})')
+
 		newNum = num
 		for i in range(10):
 			newNum = self.singleIteration(newNum, digits)

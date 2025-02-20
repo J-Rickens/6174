@@ -33,7 +33,7 @@ class TestRearranger:
 		'mix-set', 'mix-tuple'
 	])
 	def testInsertSubstringTypeErrors(self, s, sub, i):
-		errorMessage = f'Expected "s: str, sub: str, i: int" Got:"s: {type(s)}, sub: {type(sub)}, i: {type(i)}"'
+		errorMessage = f'Expected:"s: str, sub: str, i: int" Got:"s: {type(s)}, sub: {type(sub)}, i: {type(i)}"'
 		with pytest.raises(TypeError, match=reEscape(errorMessage)):
 			self.rearrangerObj.insertSubstring(s,sub,i)
 
@@ -92,7 +92,7 @@ class TestRearranger:
 		'digits-bool', 'num-bool', 'float-str', 'empty'
 	])
 	def testSetZerosTypeErrors(self, num, digits):
-		errorMessage = f'Expected "num: int, digits: int" Got:"num: {type(num)}, digits: {type(digits)}"'
+		errorMessage = f'Expected:"num: int, digits: int" Got:"num: {type(num)}, digits: {type(digits)}"'
 		with pytest.raises(TypeError, match=reEscape(errorMessage)):
 			self.rearrangerObj.setZeros(num, digits)
 
