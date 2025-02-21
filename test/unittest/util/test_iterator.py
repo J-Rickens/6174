@@ -44,37 +44,52 @@ class TestIterator:
 
 	'''
 	tests for iterate function
-	test: TypeError calls, Valid calls
+	test: TypeError calls, ValueError calls, Valid calls
 	'''
 	@pytest.mark.iterate
 	@pytest.mark.parametrize('num, digits, data', [
-		('abcd', 'z', '5'),
-		('abcd', False, 0),
-		(5, 'z', 0),
-		('abcd', 'z', True),
-		(('a','b'), ['a'], {0:0}),
-		('abcd', ('a',23), (-10,5))
+		(True, 4, None),
+		(675, False, None),
+		(1835, 4, (4253, 6853, 5321)),
+		('5325', '4', ''),
+		((6514,'465'), [4], None),
+		({456:'fail'}, (3), [4253, 6853, 5321])
 		
 	], ids=[
-		'i-str', 'sub-bool', 's-int', 'i-bool',
-		'mix-set', 'mix-tuple'
+		'num-bool', 'digits-bool', 'data-tuple',
+		'all-str', 'mix-set1', 'mix-set2'
 	])
 	def testIterateTypeErrors(self, num, digits, data):
-		errorMessage = f'Expected:"num: int, digits: int, data: list" Got:"num: {type(num)}, digits: {type(digits)}, data: {type(data)}"'
+		if (data == None):
+			errorMessage = f'Expected:"num: int, digits: int, data: list" Got:"num: {type(num)}, digits: {type(digits)}, data: {type([num])}"'
+		else:
+			errorMessage = f'Expected:"num: int, digits: int, data: list" Got:"num: {type(num)}, digits: {type(digits)}, data: {type(data)}"'
 		with pytest.raises(TypeError, match=reEscape(errorMessage)):
+			self.iteratorObj.iterate(num, digits, data)
+
+	@pytest.mark.iterate
+	@pytest.mark.parametrize('num, digits, data', [
+		(568, -1, [568, 497]),
+		(-568, 3, None)
+	])
+	def testIterateValueErrors(self, num, digits, data):
+		errorMessage = f'num and digits must be positive (num: {num}, digits: {digits})'
+		with pytest.raises(ValueError, match=reEscape(errorMessage)):
 			self.iteratorObj.iterate(num, digits, data)
 
 	@pytest.mark.iterate
 	@pytest.mark.critical
 	@pytest.mark.parametrize('num, digits, data, testdata, expectedBool, expectedData', [
 		(7641, 4, None, [7641], True, [7641, 7641]),
-		(1476, 4, None, [7641,7641], True, [1476, 7641, 7641])
+		(1476, 4, None, [7641,7641], True, [1476, 7641, 7641]),
+		(268, 3, [789,158,652,263], [123,456,158], True, [789,158,652,263,123,456,158]),
+		(0, 0, None, [1,2,3,4,5,6,7,8,9,10,21,22,23], False, [0,1,2,3,4,5,6,7,8,9,10])
 	], ids=[
-		'7641', '1476'
+		'1-round', '2-round', 'start-data', 'False-flag'
 	])
 	def testIterateValid(self, makeIteratorObjMock, num, digits, data, testdata, expectedBool, expectedData):
 		makeIteratorObjMock.singleIteration.side_effect = testdata
-		actualBool, actualData = makeIteratorObjMock.iterate(num, digits)
+		actualBool, actualData = makeIteratorObjMock.iterate(num, digits, data)
 		assert actualBool == expectedBool
 		assert actualData == expectedData
 
